@@ -99,6 +99,8 @@ topic "Installing SSL certificates"
 mcs $BUILDPACK_DIR/scripts/cert-sync.cs /r:Mono.Security.dll /out:$BUILDPACK_DIR/cert-sync.exe
 mono $BUILDPACK_DIR/cert-sync.exe --quiet --user /etc/ssl/certs/ca-certificates.crt
 
+export MONO_TLS_PROVIDER=legacy
+
 # most of these are needed for tools like mkbundle to work
 # (and will only work with the 'full' mono build)
 mkdir -p $BUILD_DIR/.profile.d
@@ -111,6 +113,7 @@ export PKG_CONFIG_PATH="\$PKG_CONFIG_PATH:/app/mono/lib/pkgconfig"
 export MONO_CFG_DIR="/app/mono/etc"
 export MONO_CONFIG="/app/mono/etc/mono/config"
 export MONO_GAC_PREFIX="/app/mono"
+export MONO_TLS_PROVIDER=legacy
 EOF
 
 set +e
